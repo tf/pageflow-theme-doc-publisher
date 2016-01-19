@@ -34,7 +34,7 @@ system 'npm install https://github.com/tf/sassdocify#branch-fix sassdoc-theme-pa
 system 'git config --global user.name "Travis CI"'
 system 'git config --global user.email "bot@travis-ci.org"'
 
-ref = ENV.fetch('TRAVIS_TAG', 'master')
+ref = version_tag? ? ENV['TRAVIS_TAG'] : 'master'
 env = "PATH=./node_modules/.bin:$PATH DEST=theme/#{ref} NODE_PATH=$PWD/node_modules SASSDOC='sassdoc --theme pageflow'"
 themes_dir = Dir.glob('app/assets/stylesheets/pageflow/*/themes').first
 
