@@ -1,0 +1,9 @@
+{
+  "name": "pageflow-theme-doc-publisher",
+  "version": "0.0.0",
+  "description": "This file is only used to manage dependencies.",
+  "dependencies": {
+    "sassdoc": "^2.1.19",
+    "sassdocify": "git://github.com/tf/sassdocify#dest"
+  }
+}

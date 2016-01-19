@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+def version_tag?
+  ENV['TRAVIS_TAG'] =~ /v\d/
+end
+
+def master?
+  ENV['TRAVIS_BRANCH'] == 'master'
+end
+
+def pull_request?
+  ENV['TRAVIS_PULL_REQUEST'] != 'false'
+end
+
+if !pull_request? && (master? || version_tag?)
+  ref = ENV.fetch('TRAVIS_TAG', 'master')
+
+  env = "PATH=./node_modules/.bin:$PATH DEST=theme/#{ref} NODE_PATH=$PWD/node_modules"
+  themes_dir = Dir.glob('app/assets/stylesheets/pageflow/*/themes').first
+
+  system 'npm install https://github.com/tf/sassdocify#dest sassdoc-theme-pageflow sassdoc@"^2.0"'
+
+  system 'git config --global user.name "Travis CI"'
+  system 'git config --global user.email "bot@travis-ci.org"'
+
+  system "#{env} sassdocify #{themes_dir}" || fail('sassdoc failed')
+
+  puts "Pushing changes"
+  system 'cd .pages; git push "https://${GH_TOKEN}@github.com/${GH_REPOSITORY}" gh-pages > /dev/null 2>&1' || fail('git push failed')
+else
+  puts "IGNORE Not master branch or version tag"
+end
