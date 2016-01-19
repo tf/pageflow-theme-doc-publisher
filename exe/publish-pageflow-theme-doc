@@ -35,7 +35,7 @@ env = "PATH=./node_modules/.bin:$PATH DEST=theme/#{ref} NODE_PATH=$PWD/node_modu
 themes_dir = Dir.glob('app/assets/stylesheets/pageflow/*/themes').first
 
 system 'nvm install stable'
-system 'npm install https://github.com/tf/sassdocify#dest sassdoc-theme-pageflow sassdoc@"^2.0"'
+system 'npm install https://github.com/tf/sassdocify#branch-fix sassdoc-theme-pageflow sassdoc@"^2.0"'
 
 system 'git config --global user.name "Travis CI"'
 system 'git config --global user.email "bot@travis-ci.org"'
