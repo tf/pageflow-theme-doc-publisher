@@ -29,7 +29,6 @@ unless ENV['GH_REPOSITORY']
   fail 'Supply GH_REPOSITORY environment variable of the form "organization/repository" via Travis settings.'
 end
 
-system 'nvm install stable'
 system 'npm install https://github.com/tf/sassdocify#branch-fix sassdoc-theme-pageflow sassdoc@"^2.0"'
 
 system 'git config --global user.name "Travis CI"'
