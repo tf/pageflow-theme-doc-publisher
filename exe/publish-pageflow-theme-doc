@@ -16,6 +16,11 @@ def built_ref?
   master? || version_tag?
 end
 
+if ENV['PUBLISH_THEME_DOC'] != 'true'
+  puts 'IGNORE: Theme doc publisher not enabled.'
+  exit
+end
+
 if pull_request? || !built_ref?
   puts 'IGNORE: Not master branch or version tag.'
   exit
