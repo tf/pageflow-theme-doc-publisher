@@ -34,6 +34,7 @@ unless ENV['GH_REPOSITORY']
   fail 'Supply GH_REPOSITORY environment variable of the form "organization/repository" via Travis settings.'
 end
 
+puts "Installing dependencies..."
 system 'npm install https://github.com/tf/sassdocify#branch-fix sassdoc-theme-pageflow sassdoc@"^2.0"'
 
 system 'git config user.name > /dev/null || git config --global user.name "Travis CI"'
@@ -43,6 +44,7 @@ ref = version_tag? ? ENV['TRAVIS_TAG'] : 'master'
 env = "PATH=./node_modules/.bin:$PATH DEST=theme/#{ref} NODE_PATH=$PWD/node_modules SASSDOC='sassdoc --theme pageflow'"
 themes_dir = Dir.glob('app/assets/stylesheets/pageflow/**/themes').first
 
+puts "Running sassdocify..."
 system "#{env} sassdocify #{themes_dir}/default*" || fail('sassdoc failed')
 
 puts "Pushing changes..."
