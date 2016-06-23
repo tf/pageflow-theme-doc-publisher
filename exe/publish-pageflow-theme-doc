@@ -36,9 +36,9 @@ system 'git config user.email > /dev/null || git config --global user.email "bot
 
 ref = version_tag? ? ENV['TRAVIS_TAG'] : 'master'
 env = "PATH=./node_modules/.bin:$PATH DEST=theme/#{ref} NODE_PATH=$PWD/node_modules SASSDOC='sassdoc --theme pageflow'"
-themes_dir = Dir.glob('app/assets/stylesheets/pageflow/*/themes').first
+themes_dir = Dir.glob('app/assets/stylesheets/pageflow/**/themes').first
 
-system "#{env} sassdocify #{themes_dir}" || fail('sassdoc failed')
+system "#{env} sassdocify #{themes_dir}/default*" || fail('sassdoc failed')
 
 puts "Pushing changes..."
 system 'cd .pages; git push "https://${GH_TOKEN}@github.com/${GH_REPOSITORY}" gh-pages > /dev/null 2>&1' || fail('git push failed')
