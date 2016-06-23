@@ -31,8 +31,8 @@ end
 
 system 'npm install https://github.com/tf/sassdocify#branch-fix sassdoc-theme-pageflow sassdoc@"^2.0"'
 
-system 'git config --global user.name "Travis CI"'
-system 'git config --global user.email "bot@travis-ci.org"'
+system 'git config user.name > /dev/null || git config --global user.name "Travis CI"'
+system 'git config user.email > /dev/null || git config --global user.email "bot@travis-ci.org"'
 
 ref = version_tag? ? ENV['TRAVIS_TAG'] : 'master'
 env = "PATH=./node_modules/.bin:$PATH DEST=theme/#{ref} NODE_PATH=$PWD/node_modules SASSDOC='sassdoc --theme pageflow'"
