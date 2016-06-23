@@ -45,7 +45,7 @@ env = "PATH=./node_modules/.bin:$PATH DEST=theme/#{ref} NODE_PATH=$PWD/node_modu
 themes_dir = Dir.glob('app/assets/stylesheets/pageflow/**/themes').first
 
 puts "Running sassdocify..."
-system "#{env} sassdocify #{themes_dir}/default*" || fail('sassdoc failed')
+system "#{env} sassdocify #{themes_dir}" || fail('sassdoc failed')
 
 puts "Pushing changes..."
 system 'cd .pages; git push "https://${GH_TOKEN}@github.com/${GH_REPOSITORY}" gh-pages > /dev/null 2>&1' || fail('git push failed')
